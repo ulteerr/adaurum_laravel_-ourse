@@ -6,6 +6,6 @@ class AboutController extends Controller
 {
     public function __invoke()
     {
-        return 'Single';
+        return 'Single Page';
     }
 }
