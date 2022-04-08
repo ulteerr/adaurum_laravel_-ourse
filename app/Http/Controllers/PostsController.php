@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -31,7 +32,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => $this->posts]);
+        return view('posts.index', ['posts' => BlogPost::all());
     }
 
     /**
@@ -41,7 +42,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create')
     }
 
     /**
@@ -64,8 +65,8 @@ class PostsController extends Controller
     public function show($id)
     {
 
-        abort_if(!isset($this->posts[$id]), 404);
-        return view('posts.show', ['posts' => $this->posts[$id]]);
+        // abort_if(!isset($this->posts[$id]), 404);
+        return view('posts.show', ['posts' => BlogPost::findOrFail($id)]);
     }
 
     /**
