@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ class PostsController extends Controller
             'is_new' => false,
         ],
     ];
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +34,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => BlogPost::all());
+        return view('posts.index', ['posts' => BlogPost::all()]);
     }
 
     /**
@@ -42,24 +44,32 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('posts.create')
+        return view('posts.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        //
+        $validated = $request->validated();
+        $post = BlogPost::create($validated);
+//        $post->title = $validated["title"];
+//        $post->content = $validated["content"];
+//        $post->fill();
+//        $post->save();
+
+        $request->session()->flash('status','The blog post was created!');
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -72,7 +82,7 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -83,8 +93,8 @@ class PostsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -95,7 +105,7 @@ class PostsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
