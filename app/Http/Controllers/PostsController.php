@@ -6,6 +6,8 @@ use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
+// use Illuminate\Support\Facades\DB;
+
 class PostsController extends Controller
 {
     private $posts = [
@@ -34,7 +36,18 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => BlogPost::all()]);
+        // DB::conection()->enableQueryLog();
+
+        // $posts = BLogPost::all();
+        // foreach ($posts as $post) {
+        //     foreach ($post->comments as $comment) {
+        //         echo $comment->content;
+        //     }
+        // }
+        // dd(DB::getQueryLog())
+        // return view('posts.index', ['posts' => BlogPost::all()]);
+        return view('posts.index',
+            ['posts' => BlogPost::withCount('comments')->get()]);
     }
 
     /**
@@ -58,11 +71,11 @@ class PostsController extends Controller
         $validated = $request->validated();
         $post = BlogPost::create($validated);
 //        $post->title = $validated["title"];
-//        $post->content = $validated["content"];
-//        $post->fill();
-//        $post->save();
+        //        $post->content = $validated["content"];
+        //        $post->fill();
+        //        $post->save();
 
-        $request->session()->flash('status','The blog post was created!');
+        $request->session()->flash('status', 'The blog post was created!');
         return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
@@ -87,7 +100,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        return view('post.edit',['post'=>BlogPost::findOrFail($id)]);
+        return view('post.edit', ['post' => BlogPost::findOrFail($id)]);
     }
 
     /**
@@ -106,7 +119,7 @@ class PostsController extends Controller
 
         $request->session()->flash('status', 'Blog post was update');
 
-        return redirect()->route('posts.show', ['post'=> $post->id]);
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
