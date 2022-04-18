@@ -10,6 +10,6 @@ class BlogPost extends Model
 
     public function comments()
     {
-        return $this->hasMany('App/Company');
+        return $this->hasMany('App\Company');
     }
 }

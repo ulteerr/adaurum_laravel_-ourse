@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout.app')
 @section('title', 'Blog Posts')
 @section('content')
 {{--    @each('post.partials.post', $posts, 'post')--}}
