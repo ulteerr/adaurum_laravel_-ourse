@@ -1,15 +1,33 @@
 <?php
 
-namespace App\Models;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+namespace App;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BlogPost extends Model
-{   use  HasFactory;
-    protected $fillable =['title', 'content'];
+{
+    // protected $table = 'blogposts';
+
+    use SoftDeletes;
+
+    protected $fillable = ['title', 'content'];
 
     public function comments()
     {
-        return $this->hasMany('App\Company');
+        return $this->hasMany('App\Comment');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function (BlogPost $blogPost) {
+            $blogPost->comments()->delete();
+        });
+
+        static::restoring(function (BlogPost $blogPost) {
+            $blogPost->comments()->restore();
+        });
     }
 }
