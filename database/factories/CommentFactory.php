@@ -1,20 +1,10 @@
 <?php
 
-namespace Database\Factories;
+use Faker\Generator as Faker;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-
-class CommentFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
-    public function definition()
-    {
-        return [
-            'content' => $this->faker->text,
-        ];
-    }
-}
+$factory->define(App\Comment::class, function (Faker $faker) {
+    return [
+        'content' => $faker->text,
+        'created_at' => $faker->dateTimeBetween('-3 months'),
+    ];
+});
