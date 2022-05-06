@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\BlogPost;
 use App\Http\Requests\StorePost;
-use Illuminate\Http\Request;
+use App\Image;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
-use App\Image;
 
 // [
 //     'show' => 'view',
@@ -55,7 +55,7 @@ class PostController extends Controller
         //         return $query->latest();
         //     }])->findOrFail($id),
         // ]);
-        $blogPost = Cache::tags(['blog-post'])->remember("blog-post-{$id}", 60, function() use($id) {
+        $blogPost = Cache::tags(['blog-post'])->remember("blog-post-{$id}", 60, function () use ($id) {
             return BlogPost::with('comments', 'tags', 'user', 'comments.user')
                 ->findOrFail($id);
         });
@@ -77,7 +77,7 @@ class PostController extends Controller
             }
         }
 
-        if(
+        if (
             !array_key_exists($sessionId, $users)
             || $now->diffInMinutes($users[$sessionId]) >= 1
         ) {
@@ -116,7 +116,7 @@ class PostController extends Controller
         if ($request->hasFile('thumbnail')) {
             $path = $request->file('thumbnail')->store('thumbnails');
             $blogPost->image()->save(
-                Image::create(['path' => $path])
+                Image::make(['path' => $path])
             );
         }
 
@@ -155,7 +155,7 @@ class PostController extends Controller
                 $post->image->save();
             } else {
                 $post->image()->save(
-                    Image::create(['path' => $path])
+                    Image::make(['path' => $path])
                 );
             }
         }

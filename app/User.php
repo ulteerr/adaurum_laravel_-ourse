@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -36,6 +36,11 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany('App\Comment');
+    }
+
+    public function image()
+    {
+        return $this->morphOne('App\Image', 'imageable');
     }
 
     public function scopeWithMostBlogPosts(Builder $query)

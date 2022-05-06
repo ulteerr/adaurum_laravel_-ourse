@@ -2,10 +2,10 @@
 
 namespace App;
 
+use App\Scopes\DeletedAdminScope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Scopes\DeletedAdminScope;
 use Illuminate\Support\Facades\Cache;
 
 class BlogPost extends Model
@@ -33,7 +33,7 @@ class BlogPost extends Model
 
     public function image()
     {
-        return $this->hasOne('App\Image');
+        return $this->morphOne('App\Image', 'imageable');
     }
 
     public function scopeLatest(Builder $query)

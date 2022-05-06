@@ -49750,8 +49750,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /media/user/Новый том/Project/laravel/cursadaurum/laravel_сourse/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /media/user/Новый том/Project/laravel/cursadaurum/laravel_сourse/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/igor/Project/adaurum_laravel_-ourse/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/igor/Project/adaurum_laravel_-ourse/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
