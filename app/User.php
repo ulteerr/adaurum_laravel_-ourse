@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -67,5 +67,10 @@ class User extends Authenticatable
             return $query->where('commentable_id', '=', $post->id)
                 ->where('commentable_type', '=', BlogPost::class);
         });
+    }
+
+    public function scopeThatIsAnAdmin(Builder $query)
+    {
+        return $query->where('is_admin', true);
     }
 }
