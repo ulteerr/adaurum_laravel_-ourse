@@ -2,10 +2,11 @@
 
 namespace App\Mail;
 
-use App\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Comment;
 
 class CommentPostedMarkdown extends Mailable
 {

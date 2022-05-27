@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUser;
-use App\Image;
 use App\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUser;
+use App\Image;
 
 class UserController extends Controller
 {
@@ -90,9 +90,12 @@ class UserController extends Controller
             }
         }
 
+        $user->locale = $request->get('locale');
+        $user->save();
+
         return redirect()
             ->back()
-            ->withStatus('Profile image was updated!');
+            ->withStatus('Profile was updated!');
     }
 
     /**

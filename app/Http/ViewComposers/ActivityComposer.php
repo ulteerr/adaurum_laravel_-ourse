@@ -9,7 +9,7 @@ use App\User;
 
 class ActivityComposer
 {
-    public function compose(View $view)
+    public function compose(View $view) 
     {
         $mostCommented = Cache::tags(['blog-post'])->remember('mostCommented', 60, function() {
             return BlogPost::mostCommented()->take(5)->get();

@@ -2,14 +2,14 @@
 
 namespace App\Mail;
 
-use App\Comment;
-use App\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Comment;
+use App\User;
 
-class CommentPostedOnPostWatched extends Mailable implements ShouldQueue
+class CommentPostedOnPostWatched extends Mailable
 {
     use Queueable, SerializesModels;
 

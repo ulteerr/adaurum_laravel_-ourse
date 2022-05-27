@@ -2,14 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Comment;
-use App\Mail\CommentPostedOnPostWatched;
-use App\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Comment;
+use App\User;
+use App\Mail\CommentPostedOnPostWatched;
 
 class NotifyUsersPostWasCommented implements ShouldQueue
 {
@@ -39,10 +39,10 @@ class NotifyUsersPostWasCommented implements ShouldQueue
             ->filter(function (User $user) {
                 return $user->id !== $this->comment->user_id;
             })->map(function (User $user) {
-            ThrottledMail::dispatch(
-                new CommentPostedOnPostWatched($this->comment, $user),
-                $user
-            );
-        });
+                ThrottledMail::dispatch(
+                    new CommentPostedOnPostWatched($this->comment, $user),
+                    $user
+                );
+            });
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\BlogPost;
 use App\Comment;
 use Illuminate\Support\Facades\Cache;
+use App\BlogPost;
 
 class CommentObserver
 {

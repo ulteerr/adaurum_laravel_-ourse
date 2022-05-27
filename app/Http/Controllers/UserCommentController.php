@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreComment;
 use App\User;
+use App\Http\Requests\StoreComment;
 
 class UserCommentController extends Controller
 {
@@ -16,7 +16,7 @@ class UserCommentController extends Controller
     {
         $user->commentsOn()->create([
             'content' => $request->input('content'),
-            'user_id' => $request->user()->id,
+            'user_id' => $request->user()->id
         ]);
 
         return redirect()->back()

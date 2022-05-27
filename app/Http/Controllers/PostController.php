@@ -24,6 +24,7 @@ class PostController extends Controller
     {
         $this->middleware('auth')
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
+        // $this->middleware('locale');
     }
 
     /**
@@ -92,7 +93,7 @@ class PostController extends Controller
         } else {
             Cache::tags(['blog-post'])->increment($counterKey, $diffrence);
         }
-
+        
         $counter = Cache::tags(['blog-post'])->get($counterKey);
 
         return view('posts.show', [

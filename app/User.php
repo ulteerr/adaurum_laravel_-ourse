@@ -10,6 +10,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public const LOCALES = [
+        'en' => 'English',
+        'es' => 'Español',
+        'de' => 'Deutsch'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -58,7 +64,7 @@ class User extends Authenticatable
         return $query->withCount(['blogPosts' => function (Builder $query) {
             $query->whereBetween(static::CREATED_AT, [now()->subMonths(1), now()]);
         }])->has('blogPosts', '>=', 2)
-            ->orderBy('blog_posts_count', 'desc');
+           ->orderBy('blog_posts_count', 'desc');
     }
 
     public function scopeThatHasCommentedOnPost(Builder $query, BlogPost $post)
