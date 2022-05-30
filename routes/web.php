@@ -11,24 +11,31 @@
 |
 */
 
-Route::get('/', 'HomeController@home')
-  ->name('home')
-  // ->middleware('auth')
-  ;
-Route::get('/contact', 'HomeController@contact')->name('contact');
-Route::get('/secret', 'HomeController@secret')
-  ->name('secret')
-  ->middleware('can:home.secret');
-Route::resource('posts', 'PostController');
-Route::get('/posts/tag/{tag}', 'PostTagController@index')->name('posts.tags.index');
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::resource('posts.comments', 'PostCommentController')->only(['index', 'store']);
-Route::resource('users.comments', 'UserCommentController')->only(['store']);
-Route::resource('users', 'UserController')->only(['show', 'edit', 'update']);
+Route::view('/', 'home');
 
-Route::get('mailable', function () {
-    $comment = App\Comment::find(1);
-    return new App\Mail\CommentPostedMarkdown($comment);
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
+
+Route::view('/contact', 'contact');
+
+Route::get('/blog-post/{id}/{welcome?}', function ($id, $welcome = 1) {
+    $pages = [
+        1 => [
+            'title' => 'from page 1',
+        ],
+        2 => [
+            'title' => 'from page 2',
+        ],
+    ];
+    $welcomes = [1 => '<b>Hello</b> ', 2 => 'Welcome to '];
+
+    return view('blog-post', [
+        'data' => $pages[$id],
+        'welcome' => $welcomes[$welcome],
+    ]);
 });
-
-Auth::routes();
