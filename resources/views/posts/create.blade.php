@@ -1,11 +1,18 @@
 @extends('layout')
 
 @section('content')
-    <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('posts.store') }}">
         @csrf
+        <p>
+            <label>Title</label>
+            <input type="text" name="title"/>
+        </p>
         
-        @include('posts._form')
+        <p>
+            <label>Content</label>
+            <input type="text" name="content"/>
+        </p>
 
-        <button type="submit" class="btn btn-primary btn-block">{{ __('Create!') }}</button>
+        <button type="submit">Create!</button>
     </form>
 @endsection
