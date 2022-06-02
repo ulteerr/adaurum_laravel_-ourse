@@ -2,13 +2,32 @@
 
 @section('content')
     <form method="POST" 
-          action="{{ route('posts.update', ['post' => $post->id]) }}"
-          enctype="multipart/form-data">
+          action="{{ route('posts.update', ['post' => $post->id]) }}">
         @csrf
         @method('PUT')
 
-        @include('posts._form')
+        <p>
+            <label>Title</label>
+            <input type="text" name="title" 
+                value="{{ old('title', $post->title) }}"/>
+        </p>
+        
+        <p>
+            <label>Content</label>
+            <input type="text" name="content" 
+                value="{{ old('content', $post->content) }}"/>
+        </p>
 
-        <button type="submit" class="btn btn-primary btn-block">{{ __('Update!') }}</button>
+        @if($errors->any())
+            <div>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <button type="submit">Update!</button>
     </form>
 @endsection
